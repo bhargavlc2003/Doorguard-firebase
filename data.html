@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="tablestyle.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <title>Doorguard Visitor Entries</title> 
+</head>
+<body>
+  <section>
+    <h1>DOORGUARD - Visitor Details</h1>
+
+    <!-- Scrollable container wrapping both header and table content -->
+    <div class="table-container">
+      <!-- Table Header (Fixed) -->
+      <div class="tbl-header">
+        <table>
+          <colgroup>
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 16%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Visitor Name</th>
+              <th>Visitor Address</th>
+              <th>Visitor Contact</th>
+              <th>Resident Name</th>
+              <th>Visit Time</th>
+              <th>Visit Date</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <!-- Table Content (Scrollable) -->
+      <div class="tbl-content">
+        <table>
+          <colgroup>
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 16%;">
+          </colgroup>
+          <tbody>
+            <% visitors.forEach(visitor => { %>
+              <tr>
+                <td><%= visitor.visitorName %></td>
+                <td><%= visitor.visitorAddress %></td>
+                <td><%= visitor.visitorContact %></td>
+                <td><%= visitor.residentName %></td>
+                <td><%= visitor.visitTime %></td>
+                <td><%= visitor.visitDate %></td>
+                <td><%= visitor.purpose %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </section>
+
+  <!-- Buttons Section -->
+  <div class="buttonclass">
+    <button class="tablebuttons" type="submit" onclick="window.location.href='index.html'">Home</button>
+
+    <form action="/truncate" method="post">
+      <button type="submit" class="tablebuttons">Clear All Entries</button>
+    </form>
+  </div>
+
+  <!-- Script to Sync Table Header with Scroll -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let headerTable = document.querySelector(".tbl-header");
+        let contentTable = document.querySelector(".tbl-content");
+
+        contentTable.addEventListener("scroll", function() {
+            headerTable.scrollLeft = contentTable.scrollLeft;
+        });
+    });
+  </script>
+  <script src="firebase-config.js"></script>
+  <script src="datascript.js"></script>
+  
+</body>
+</html>
