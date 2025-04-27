@@ -7,7 +7,7 @@ const db = getFirestore(app);
 
 async function loadVisitors() {
     const visitorTable = document.getElementById('visitorTableBody');
-    visitorTable.innerHTML = ''; // Clear existing
+    visitorTable.innerHTML = ''; // Clear previous rows
 
     const querySnapshot = await getDocs(collection(db, "visitors"));
     querySnapshot.forEach((docData) => {
@@ -28,12 +28,13 @@ async function loadVisitors() {
 document.getElementById('clearEntriesBtn').addEventListener('click', async () => {
     if (confirm("Are you sure you want to clear all entries?")) {
         const querySnapshot = await getDocs(collection(db, "visitors"));
-        querySnapshot.forEach(async (docItem) => {
+        for (const docItem of querySnapshot.docs) {
             await deleteDoc(doc(db, "visitors", docItem.id));
-        });
+        }
         alert("All entries cleared!");
-        loadVisitors(); // reload table
+        loadVisitors(); // Reload table after clearin
     }
 });
 
+// Initial load
 loadVisitors();
