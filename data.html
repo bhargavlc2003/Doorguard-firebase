@@ -54,18 +54,8 @@
             <col style="width: 14%;">
             <col style="width: 16%;">
           </colgroup>
-          <tbody>
-            <% visitors.forEach(visitor => { %>
-              <tr>
-                <td><%= visitor.visitorName %></td>
-                <td><%= visitor.visitorAddress %></td>
-                <td><%= visitor.visitorContact %></td>
-                <td><%= visitor.residentName %></td>
-                <td><%= visitor.visitTime %></td>
-                <td><%= visitor.visitDate %></td>
-                <td><%= visitor.purpose %></td>
-              </tr>
-            <% }) %>
+          <tbody id="visitorTableBody">
+            <!-- Visitor rows will be inserted here dynamically -->
           </tbody>
         </table>
       </div>
@@ -75,26 +65,23 @@
 
   <!-- Buttons Section -->
   <div class="buttonclass">
-    <button class="tablebuttons" type="submit" onclick="window.location.href='index.html'">Home</button>
-
-    <form action="/truncate" method="post">
-      <button type="submit" class="tablebuttons">Clear All Entries</button>
-    </form>
+    <button class="tablebuttons" type="button" onclick="window.location.href='index.html'">Home</button>
+    <button id="clearEntriesBtn" type="button" class="tablebuttons">Clear All Entries</button>
   </div>
 
   <!-- Script to Sync Table Header with Scroll -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let headerTable = document.querySelector(".tbl-header");
-        let contentTable = document.querySelector(".tbl-content");
+      let headerTable = document.querySelector(".tbl-header");
+      let contentTable = document.querySelector(".tbl-content");
 
-        contentTable.addEventListener("scroll", function() {
-            headerTable.scrollLeft = contentTable.scrollLeft;
-        });
+      contentTable.addEventListener("scroll", function() {
+          headerTable.scrollLeft = contentTable.scrollLeft;
+      });
     });
   </script>
-  <script src="firebase-config.js"></script>
-  <script src="datascript.js"></script>
+
+  <script type="module" src="datascript.js"></script>
   
 </body>
 </html>
